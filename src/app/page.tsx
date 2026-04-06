@@ -9,6 +9,7 @@ import TaxBenefits from '@/components/TaxBenefits'
 import ProjectTracker from '@/components/ProjectTracker'
 import ActionPlan from '@/components/ActionPlan'
 import Footer from '@/components/Footer'
+import ScrollToTop from '@/components/ScrollToTop'
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('dashboard')
@@ -34,6 +35,7 @@ export default function Home() {
         <section id="action"><ActionPlan /></section>
       </div>
       <Footer />
+      <ScrollToTop />
     </main>
   )
 }
