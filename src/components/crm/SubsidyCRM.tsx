@@ -18,7 +18,7 @@ const TAB_KEYS = ['overview','subsidies','timeline','docs']
 type Tab = 'overview'|'subsidies'|'timeline'|'docs'
 
 const DEFAULT_SUBSIDIES = [
-  { id: 'digital-ai', name: 'デジタル化・AI導入補助金2026', category: '国', max_amount: '¥450万', rate: '1/2〜4/5', status: 1, priority: '高', deadline: '2026-05-12' },
+  { id: 'digital-ai', name: 'デジタル化・AI導入補助金2026', category: '国', max_amount: '目標350万円', rate: '2/3', status: 1, priority: '高', deadline: '2026-05-12' },
   { id: 'monodukuri', name: 'ものづくり補助金 第23次', category: '国', max_amount: '¥4,000万', rate: '1/2〜2/3', status: 1, priority: '高', deadline: '2026-06-30' },
   { id: 'osaka-dx', name: '大阪産業局 DX支援補助金', category: '大阪府', max_amount: '¥300万', rate: '2/3', status: 0, priority: '中', deadline: '2026-08-31' },
   { id: 'reskilling', name: '大阪府リスキリング支援補助金', category: '大阪府', max_amount: '費用の一部', rate: '優遇率', status: 0, priority: '低', deadline: '2026-12-31' },

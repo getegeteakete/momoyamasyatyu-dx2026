@@ -3,7 +3,7 @@ import { useState, useMemo } from 'react'
 
 const FRAMES: Record<string,{name:string;cap:number;rate:number}> = {
   'normal-small': { name: '通常枠（小規模プロセス）', cap: 1500000, rate: 0.5 },
-  'normal-high': { name: '通常枠（高度連携プロセス）', cap: 4500000, rate: 0.5 },
+  'normal-high': { name: '通常枠（桃山社中プラン：目標350万円）', cap: 3500000, rate: 0.667 },
   'invoice': { name: 'インボイス枠', cap: 3500000, rate: 0.667 },
   'security': { name: 'セキュリティ対策推進枠', cap: 1500000, rate: 0.5 },
   'monodukuri': { name: 'ものづくり補助金', cap: 7500000, rate: 0.5 },
@@ -35,8 +35,8 @@ function Box({ label, value, color, sub }: { label:string;value:string;color:str
 }
 
 export default function BenefitCalculator() {
-  const [inv, setInv] = useState(3000000)
-  const [frame, setFrame] = useState('normal-small')
+  const [inv, setInv] = useState(5250000)
+  const [frame, setFrame] = useState('normal-high')
   const [emp, setEmp] = useState(5)
   const [rev, setRev] = useState(2000000)
   const [hours, setHours] = useState(80)

@@ -3,18 +3,18 @@ import { useState } from 'react'
 
 const subsidies = [
   {
-    id: 'digital-ai', category: '国', badge: '主力', badgeClass: 'badge-gold',
-    name: 'デジタル化・AI導入補助金2026', subtitle: '旧IT導入補助金 ／ 令和8年度',
-    maxAmount: '最大450万円', rate: '1/2〜4/5', startDate: '2026年3月30日', color: '#c9a84c',
+    id: 'digital-ai', category: '国', badge: 'メイン', badgeClass: 'badge-gold',
+    name: 'デジタル化・AI導入補助金2026', subtitle: '旧IT導入補助金 ／ 令和8年度【桃山社中 目標：350万円獲得】',
+    maxAmount: '目標 350万円', rate: '2/3', startDate: '第1次：2026年5月12日', color: '#c9a84c',
     frames: [
-      { name: '通常枠（小規模プロセス）', max: '150万円未満', rate: '1/2', desc: 'AIチャットボット・受注管理システム' },
-      { name: '通常枠（高度連携プロセス）', max: '450万円', rate: '1/2', desc: 'AI搭載ERP・4プロセス以上' },
-      { name: 'インボイス枠', max: '350万円', rate: '2/3〜4/5', desc: '会計・受発注・決済・PC・タブレット' },
-      { name: 'セキュリティ対策推進枠', max: '150万円', rate: '1/2（小規模2/3）', desc: 'サイバーセキュリティ対策' },
-      { name: '複数者連携AI導入枠', max: '3,000万円（グループ）', rate: '2/3', desc: 'AIカメラ・消費動向分析・データ連携' },
+      { name: '通常枠（桃山社中 申請計画）', max: '目標350万円', rate: '2/3', desc: '補助対象経費525万円 × 2/3 = 350万円　※保守料2年分込み' },
+      { name: '　内訳：AI予約・顧客管理システム', max: '280万円', rate: '2/3 → 187万円', desc: '顧客・予約・儀式進行管理AIシステム（登録ITツール限定）' },
+      { name: '　内訳：クラウド保守料（2年分）', max: '120万円', rate: '2/3 → 80万円', desc: '最大2年分のクラウドサービス利用料が補助対象（公式確認済）' },
+      { name: '　内訳：導入コンサル・研修費', max: '75万円', rate: '2/3 → 50万円', desc: 'IT支援事業者による導入設定・スタッフ研修費' },
+      { name: '　内訳：セキュリティ対策費', max: '50万円', rate: '2/3 → 33万円', desc: 'SECURITY ACTION対応セキュリティツール' },
     ],
-    conditions: ['GビズIDプライム取得必須', 'SECURITY ACTION宣言必須', 'IT導入支援事業者との共同申請', '賃上げ要件（再申請時）'],
-    scenario: '神事・イベント受注管理AIシステム／AIチャットボット（24h対応）',
+    conditions: ['GビズIDプライム取得必須（取得済み ✓）', 'SECURITY ACTION一つ星申請必須（取得済み ✓）', 'IT導入支援事業者との共同申請（登録事業者のみ）', '交付決定前の購入・契約は補助対象外'],
+    scenario: '補助対象経費525万円（AI導入+保守料2年分+コンサル+セキュリティ）に対し2/3補助で350万円獲得を目標。第1〜4次の複数回申請機会あり。',
   },
   {
     id: 'monodukuri', category: '国', badge: 'R&D', badgeClass: 'badge-blue',
@@ -49,7 +49,7 @@ export default function SubsidyCards() {
       <div style={{ marginBottom: 48 }}>
         <div className="badge badge-gold" style={{ marginBottom: 12 }}>活用可能な支援制度</div>
         <h2 style={{ fontFamily: "'Shippori Mincho',serif", fontSize: 'clamp(26px,4vw,42px)', fontWeight: 700, color: 'var(--shiro)', marginBottom: 12 }}>補助金・助成金 <span className="kinpaku-text">全容マップ</span></h2>
-        <p style={{ color: 'rgba(245,240,232,.55)', maxWidth: 600, lineHeight: 1.7 }}>桃山社中のAI導入フェーズに応じて組み合わせ活用が可能。国・大阪府・税制の三層で最大効果を。</p>
+        <p style={{ color: 'rgba(245,240,232,.55)', maxWidth: 600, lineHeight: 1.7 }}>補助対象経費600万円に対し補助率2/3で400万円確保を目標。AI導入補助金350万円（メイン）＋ものづくり補助金50万円（保険A）の2本柱戦略。</p>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {subsidies.map(sub => (
