@@ -4,3 +4,7 @@ out/
 .env.local
 .DS_Store
 *.log
+
+# Env files
+.env.local
+.env
