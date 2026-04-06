@@ -38,6 +38,28 @@ export default function SubsidyCRM() {
     setTimeout(() => setSyncStatus('syncing'), 2000)
   }, [])
 
+  const DEFAULT_SUBSIDIES = [
+    { id: 'digital-ai', name: 'デジタル化・AI導入補助金2026', category: '国', max_amount: '¥450万', rate: '1/2〜4/5', status: 1, priority: '高', deadline: '2026-05-12' },
+    { id: 'monodukuri', name: 'ものづくり補助金 第23次', category: '国', max_amount: '¥4,000万', rate: '1/2〜2/3', status: 1, priority: '高', deadline: '2026-06-30' },
+    { id: 'osaka-dx',   name: '大阪産業局 DX支援補助金', category: '大阪府', max_amount: '¥300万', rate: '2/3', status: 0, priority: '中', deadline: '2026-08-31' },
+    { id: 'reskilling', name: '大阪府リスキリング支援補助金', category: '大阪府', max_amount: '費用の一部', rate: '優遇率', status: 0, priority: '低', deadline: '2026-12-31' },
+  ]
+  const DEFAULT_TASKS = [
+    { id: 't-d1', subsidy_id: 'digital-ai', text: 'GビズIDプライム取得', done: true, date: '2026-02-28' },
+    { id: 't-d2', subsidy_id: 'digital-ai', text: 'SECURITY ACTION一つ星申請', done: true, date: '2026-02-28' },
+    { id: 't-d3', subsidy_id: 'digital-ai', text: 'IT支援事業者選定', done: false, date: '2026-03-20' },
+    { id: 't-d4', subsidy_id: 'digital-ai', text: '事業計画書作成', done: false, date: '2026-04-20' },
+    { id: 't-d5', subsidy_id: 'digital-ai', text: '交付申請提出', done: false, date: '2026-05-10' },
+    { id: 't-m1', subsidy_id: 'monodukuri', text: '革新性論証資料作成', done: false, date: '2026-03-31' },
+    { id: 't-m2', subsidy_id: 'monodukuri', text: '技術開発計画策定', done: false, date: '2026-04-30' },
+    { id: 't-m3', subsidy_id: 'monodukuri', text: '申請書提出', done: false, date: '2026-06-25' },
+    { id: 't-o1', subsidy_id: 'osaka-dx', text: 'DX課題整理ヒアリング', done: false, date: '2026-05-15' },
+    { id: 't-o2', subsidy_id: 'osaka-dx', text: '専門家コンサル手配', done: false, date: '2026-06-01' },
+    { id: 't-o3', subsidy_id: 'osaka-dx', text: '申請書類準備', done: false, date: '2026-08-15' },
+    { id: 't-r1', subsidy_id: 'reskilling', text: '対象研修プログラム確認', done: false, date: '2026-07-01' },
+    { id: 't-r2', subsidy_id: 'reskilling', text: '受講申込', done: false, date: '2026-09-01' },
+  ]
+
   const loadAll = useCallback(async () => {
     setLoading(true)
     const [{ data: subs }, { data: allTasks }, { data: allNotes }, { data: allFiles }] = await Promise.all([
@@ -46,7 +68,27 @@ export default function SubsidyCRM() {
       supabase.from('notes').select('*').order('created_at', { ascending: false }),
       supabase.from('files').select('*').order('created_at', { ascending: false }),
     ])
-    if (subs) setSubsidies(subs)
+    if (subs && subs.length > 0) {
+      setSubsidies(subs)
+    } else if (subs && subs.length === 0) {
+      // テーブルは存在するがデータが空 → 初期データを自動投入
+      await supabase.from('subsidies').upsert(DEFAULT_SUBSIDIES)
+      await supabase.from('tasks').upsert(DEFAULT_TASKS)
+      const { data: freshSubs } = await supabase.from('subsidies').select('*').order('created_at')
+      const { data: freshTasks } = await supabase.from('tasks').select('*').order('created_at')
+      if (freshSubs) setSubsidies(freshSubs)
+      if (freshTasks) {
+        const grouped: Record<string, Task[]> = {}
+        for (const t of freshTasks) {
+          if (!grouped[t.subsidy_id]) grouped[t.subsidy_id] = []
+          grouped[t.subsidy_id].push(t)
+        }
+        setTasks(grouped)
+      }
+      setLoading(false)
+      setSyncStatus('ok')
+      return
+    }
     if (allTasks) {
       const grouped: Record<string, Task[]> = {}
       for (const t of allTasks) {
